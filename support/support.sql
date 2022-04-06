@@ -35,4 +35,7 @@ INSERT INTO tasks (name) VALUES
 ('Response Pres.'),
 ('Monitoring'),
 ('Perform. Feedbk.'),
-('Motiv. Feedbk.');
+('Motiv. Feedbk.'),
+('Equip. Mgt.'),
+('Organization'),
+('Behavior Mgt.');
