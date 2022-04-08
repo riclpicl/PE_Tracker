@@ -6,31 +6,48 @@
 </head>
 <body>
   <h1>PE Tracker</h1>
-    <% tasks.forEach(function(r) {%>
+    <% tasks.forEach(function(r) { %>
      <li style= "list-style-type: none"><button id='<%= r.id %>'
         onClick='javascript:logTask(<%= r.id %>)'> <%= r.name %> </button></li>
     <% }); %>
     <script>
   let currentTaskId = null;
+  let startTime, endTime;
+  let first_click = true;
+  let duration = null;
 
   const logTask = async function(id) {
-    const response = await fetch('/log', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        users_id: -1,
-        students_id: -1,
-        tasks_id: id,
-        duration: "'+00:00:01'"
-      })
-    });
-    const result = await response.json();
-    console.log(result);
-    
-    currentTaskId = id;
+    if (first_click) {
+        startTime = performance.now();
+      first_click = false;
+    } else {
+        endTime = performance.now();
+        var timeDiff = endTime - startTime; // in ms
+        // strip the ms
+        timeDiff /= 1000;
+
+        // get seconds
+        var seconds = Math.round(timeDiff);
+        console.log(seconds + " seconds");
+
+        const response = await fetch('/log', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            users_id: -1,
+            students_id: -1,
+            tasks_id: id,
+            duration: "'00:00:01'"
+          })
+        });
+        const result = await response.json();
+        console.log(result);
+
+        currentTaskId = id;
+    }
   };
     </script>
 </body>
