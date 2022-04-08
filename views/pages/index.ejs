@@ -7,7 +7,7 @@
 <body>
   <h1>PE Tracker</h1>
     <% tasks.forEach(function(r) { %>
-     <li style= "list-style-type: none"><button id='<%= r.id %>'
+     <li id='<%= r.id %>' style ="color: black"><button id='<%= r.id %>'
         onClick='javascript:logTask(<%= r.id %>)'> <%= r.name %> </button></li>
     <% }); %>
     <script>
@@ -35,11 +35,11 @@
         if (seconds > 60) {
           // divide seconds by 60 and round to the nearest integer
           var minutes = Math.round(seconds / 60);
-          
+          console.log(minutes + "minutes");
           duration = "'00:" + minutes + ":00'";
         } else if (minutes > 60) {
           var hours = Math.round(minutes / 60);
-
+          console.log(houts + "hours");
           duration = hours + "'00:00'";
         }
         const response = await fetch('/log', {
@@ -61,6 +61,8 @@
         currentTaskId = id;
     }
   };
+
+
     </script>
 </body>
 </html>
