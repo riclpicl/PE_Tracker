@@ -7,19 +7,24 @@
 <body>
   <h1>PE Tracker</h1>
     <% tasks.forEach(function(r) { %>
-     <li id='<%= r.id %>' style ="color: black"><button id='<%= r.id %>'
-        onClick='javascript:logTask(<%= r.id %>)'> <%= r.name %> </button></li>
+    <ul> 
+      <li id='<%= r.id %>' style ="color: black">
+      <button id='<%= r.id %>'
+        onClick='javascript:logTask(<%= r.id %>)'> <%= r.name %> 
+      </button>
+      </li>
+    </ul>  
     <% }); %>
     <script>
   let currentTaskId = null;
-  let startTime, endTime;
-  let first_click = true;
   let duration = null;
+  let first_Click = true;
+  let startTime, endTime, minutes;
 
   const logTask = async function(id) {
-    if (first_click) {
+    if (first_Click) {
         startTime = performance.now();
-      first_click = false;
+      first_Click = false;
     } else {
         endTime = performance.now();
         var timeDiff = endTime - startTime; // in ms
@@ -34,7 +39,7 @@
 
         if (seconds > 60) {
           // divide seconds by 60 and round to the nearest integer
-          var minutes = Math.round(seconds / 60);
+          minutes = Math.round(seconds / 60);
           console.log(minutes + "minutes");
           duration = "'00:" + minutes + ":00'";
         } else if (minutes > 60) {
@@ -61,8 +66,6 @@
         currentTaskId = id;
     }
   };
-
-
     </script>
 </body>
 </html>
