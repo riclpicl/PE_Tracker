@@ -29,7 +29,19 @@
         // get seconds
         var seconds = Math.round(timeDiff);
         console.log(seconds + " seconds");
+        
+        duration = "'00:00:" + seconds + "'";
 
+        if (seconds > 60) {
+          // divide seconds by 60 and round to the nearest integer
+          var minutes = Math.round(seconds / 60);
+          
+          duration = "'00:" + minutes + ":00'";
+        } else if (minutes > 60) {
+          var hours = Math.round(minutes / 60);
+
+          duration = hours + "'00:00'";
+        }
         const response = await fetch('/log', {
           method: 'POST',
           headers: {
@@ -40,7 +52,7 @@
             users_id: -1,
             students_id: -1,
             tasks_id: id,
-            duration: "'00:00:01'"
+            duration: duration
           })
         });
         const result = await response.json();
